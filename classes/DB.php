@@ -11,7 +11,7 @@ class DB
         
     }
 
-    public function query($sql, $class ='stdClass')
+    public function queryAll($sql, $class ='stdClass')
     {
         $stmt = $this->db->query($sql);
         $res = [];
@@ -19,6 +19,11 @@ class DB
             $res[] = $row;
         };
         return $res;
+    }
+
+    public function queryOne($sql, $class = 'stdClass')
+    {
+        return $this->queryAll($sql,$class)[0];
     }
 
     public function __destruct()
