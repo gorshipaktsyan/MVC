@@ -9,8 +9,10 @@ class NewsController
     {
 
         $items = News::getAll();
+        $view = new View();
+        $view->items = $items;
+        echo $view->render('news/all.php');
 
-        include __DIR__.'/../views/news/all.php';
 
     }
 
@@ -18,8 +20,10 @@ class NewsController
     {
 
         $id = $_GET['id'];
-        $items = News::getOne($id);
-        include __DIR__.'/../views/news/one.php';
+        $item = News::getOne($id);
+        $view = new View();
+        $view->item = $item;
+        echo $view->render('news/One.php');
     }
 
 
