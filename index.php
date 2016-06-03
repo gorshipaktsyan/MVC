@@ -1,4 +1,5 @@
 <?php
+//var_dump($_SERVER['REQUEST_URI']);
 
 require_once __DIR__.'/autoload.php';
 

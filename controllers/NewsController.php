@@ -8,10 +8,10 @@ class NewsController
     public function actionAll()
     {
 
-        $items = News::getAll();
+        $art = NewsModel::findAll();
         $view = new View();
-        $view->items = $items;
-        echo $view->render('news/all.php');
+        $view->items = $art;
+        echo $view->render('news/All.php');
 
 
     }
@@ -19,13 +19,32 @@ class NewsController
     public function actionOne()
     {
 
-        $id = $_GET['id'];
-        $item = News::getOne($id);
+        
+        $id = 1;
+        $item = NewsModel::findOneByPk($id);
         $view = new View();
         $view->item = $item;
         echo $view->render('news/One.php');
     }
 
+    public function actionInsert()
+    {
+
+        $art = new NewsModel();
+        $art->title = 'Gor';
+        $art->text = 'Gor Shipaktsyan';
+        $art->insert();
+
+    }
+
+    public function actionUpdate()
+    {
+
+        $art = NewsModel::findOneByPk(1);
+        $art->text = 'Gor Shipaktsyan';
+        $art->update();
+
+    }
 
 
 

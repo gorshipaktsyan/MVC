@@ -1,2 +1,2 @@
-<h1><?php echo $items->title; ?></h1>
-<h3><?php echo $items->text; ?></h3>
+<h1><?php echo $item->title; ?></h1>
+<h3><?php echo $item->text; ?></h3>

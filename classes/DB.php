@@ -3,32 +3,43 @@
 
 class DB
 {
-    public $db;
+    private $dsn;
+    private $className = 'stdClass';
     
     public function __construct()
     {
-        $this->db = new PDO('mysql:host=localhost;dbname=test','root','');
-        
+        $this->dsn = new PDO('mysql:host=localhost;dbname=test','root','');
     }
 
-    public function queryAll($sql, $class ='stdClass')
+    
+    public function query($sql, $params = [])
     {
-        $stmt = $this->db->query($sql);
-        $res = [];
-        while ($row = $stmt->fetchObject($class)){
-            $res[] = $row;
-        };
+        $stmt = $this->dsn->prepare($sql);
+        $stmt->execute($params);
+        $res = $stmt->fetchAll(PDO::FETCH_CLASS, $this->className);
         return $res;
     }
 
-    public function queryOne($sql, $class = 'stdClass')
+    public function execute($sql, $params = [])
     {
-        return $this->queryAll($sql,$class)[0];
+        $stmt = $this->dsn->prepare($sql);
+        $res = $stmt->execute($params);
+        return $res;
+    }
+    
+    public function lastInsertId()
+    {
+        return $this->dsn->lastInsertId();
+    }
+
+        
+    public function setClassName($className){
+        $this->className = $className;
     }
 
     public function __destruct()
     {
-        $this->db = NULL;
+        $this->dsn = NULL;
     }
 
 }
